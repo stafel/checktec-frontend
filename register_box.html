@@ -20,19 +20,20 @@
         <a class="bg-lime-500 rounded-xl p-2" href="/team.html">Das Team</a>
     </figure>
     <main class="p-4 flex-grow bg-gray-200"> <!-- mx-auto -->
-        <form class="md:flex" id="content">
-            <div class="mx-auto place-content-center">
+        <form class="grid justify-items-center" id="content">
+            <div class="mx-auto">
                 Box nummer: <input type="text" id="boxnrInput" name="boxnrInput"><br>
                 <p class="text-red-500" id="boxnrHelp"></p>
                 <input id="boxnrCheck" class="bg-lime-500 rounded-xl p-2" type="button" onclick="checkBoxnr()" value="Prüfen">
             </div>
-
-            <div id="additionalInfo">
-                
+            <div class="mx-auto" id="additionalInfo" style="display: none;">
+                <iframe src="" id="addInfoIframe"></iframe>
             </div>
 
         <script>
             function checkBoxnr() {
+                let elementAddInfo = document.getElementById('addInfoIframe');
+                let elementAddInfoBox = document.getElementById('additionalInfo');
                 let elementBoxnr = document.getElementById('boxnrInput');
                 let elementHelp = document.getElementById('boxnrHelp');
                 let elementCheck = document.getElementById('boxnrCheck');
@@ -60,6 +61,9 @@
                 elementBoxnr.classList.add('bg-slate-200');
                 elementBoxnr.value = boxnrValue;
                 elementCheck.style.display = "none";
+                elementAddInfoBox.style.display = "block";
+
+                elementAddInfo.src = "/edit_box_sub.html?boxnr=" + boxnrValue;
             }
 
             function setupForm() {
