@@ -1,3 +1,13 @@
+function getBox(boxnr) {
+    let box = {
+        boxnr: boxnr,
+        bezeichnung: "Testbox",
+        standort: "Präsentationsstand",
+    }
+
+    return box;
+}
+
 function getUser() {
     return JSON.parse(localStorage.getItem("user"));
 }

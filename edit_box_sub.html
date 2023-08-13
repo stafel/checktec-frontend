@@ -9,8 +9,27 @@
     <script src="control.js"></script>
 </head>
 <body>
-    test<br>
-    test<br>
-    test<br>
+    <form class="grid justify-items-center"> <!--  justify-items-center -->
+        <input type="hidden" id="edt_boxnr", name="edt_boxnr">
+        <div>Bezeichnung: <input type="text" id="edt_bez", name="edt_bez"></div>
+        <div>Standort: <input type="text" id="edt_ort", name="edt_ort"></div>
+    </form>
+    <script>
+        function setupSubBoxForm() {
+            let boxnr = getParam('boxnr');
+
+            edt_boxnr.value = boxnr;
+
+            let box = getBox(boxnr);
+
+            if (box === null) {
+                return;
+            }
+
+            edt_bez.value = box.bezeichnung;
+            edt_ort.value = box.standort;
+        }
+        setupSubBoxForm();
+    </script>
 </body>
 </html>
