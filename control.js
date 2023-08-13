@@ -67,6 +67,7 @@ function saveBox(box) {
     for (let i = 0; i < boxes.length; i++) {
         if (boxes[i].boxnr === box.boxnr) {
             boxes[i] = box;
+            saveBoxes(boxes);
             return;
         }
     }
