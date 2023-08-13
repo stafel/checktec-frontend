@@ -1,11 +1,82 @@
-function getBox(boxnr) {
-    let box = {
-        boxnr: boxnr,
+dummy_boxes = [
+    {
+        boxnr: "MX123456",
+        userid: "rafael.stauffer@checktec.ch",
+        bezeichnung: "Testcontroller",
+        standort: "Präsentationsstand",
+    },
+    {
+        boxnr: "BX123456",
+        userid: "rafael.stauffer@checktec.ch",
         bezeichnung: "Testbox",
         standort: "Präsentationsstand",
+    },
+    {
+        boxnr: "BX121212",
+        userid: "rafael.stauffer@checktec.ch",
+        bezeichnung: "Kirschen",
+        standort: "Präsentationsstand",
+    },
+];
+
+team = [
+    {name: "Brian", job: "Projektleiter", img: "brian.png"},
+    {name: "Daniel", job: "Stv. Projektleiter, Dokumentation", img: "daniel.png"},
+    {name: "Leorant", job: "Maschinenbau", img: "leorant.png"},
+    {name: "Ilija", job: "Maschinenbau", img: "ilija.png"},
+    {name: "Joel", job: "Elektrotechnik", img: "joel.png"},
+    {name: "Dominic", job: "Elektrotechnik", img: "dominic.png"},
+    {name: "Elia", job: "Elektrotechnik", img: "elia.png"},
+    {name: "Rafael", job: "IT, Frontend", img: "rafael.png"},
+    {name: "Marc", job: "IT, Backend", img: "marc.png"},
+]
+
+function getTeam() {
+    return team;
+}
+
+function clearBoxes() {
+    localStorage.setItem("boxes", null);
+}
+
+function loadBoxes() {
+    let boxes = JSON.parse(localStorage.getItem("boxes"));
+    if (boxes === null) {
+        return dummy_boxes;
+    }
+    return boxes;
+}
+
+function saveBoxes(boxes) {
+    localStorage.setItem("boxes", JSON.stringify(boxes));
+}
+
+function getBox(boxnr) {
+    let boxes = loadBoxes();
+    for (let i = 0; i < boxes.length; i++) {
+        if (boxes[i].boxnr === boxnr) {
+            return boxes[i];
+        }
     }
 
-    return box;
+    return null;
+}
+
+function saveBox(box) {
+    let boxes = loadBoxes();
+    for (let i = 0; i < boxes.length; i++) {
+        if (boxes[i].boxnr === box.boxnr) {
+            boxes[i] = box;
+            return;
+        }
+    }
+
+    boxes.push(box);
+    saveBoxes(boxes);
+}
+
+function getBoxes(userid) {
+    return loadBoxes();
 }
 
 function getUser() {

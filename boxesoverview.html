@@ -20,7 +20,55 @@
         <a class="bg-lime-500 rounded-xl p-2" href="/team.html">Das Team</a>
     </figure>
     <main class="p-4 flex-grow bg-gray-200"> <!-- mx-auto -->
-        Momentan wurden noch keine Boxen auf Ihr Konto registriert.
+        <div id="content" class="grid grid-cols-4 justify-items-center">
+            <div></div>
+            <div id="sidebar">
+                <p>Meine Boxen</p>
+            </div>
+            <div id="mainbar">
+                <iframe src="" id="addInfoIframe" name="addInfoIframe" style="min-width: 400px;"></iframe>
+            </div>
+            <div></div>
+        </div>
+
+        <script>
+            function setupForm() {
+                let element = document.getElementById('content');
+
+                let user = getUser();
+
+                if (user === null) {
+                    element.innerHTML = '<div></div><h1 class="mx-auto text-xl">Um eine Box editieren zu können müssen Sie sich zuerst <a class="underline" href="login.html">Anmelden</a> oder ein <a class="underline" href="register.html">Benutzerkonto registrieren</a>.</h1>'
+                    return;
+                }
+
+                let boxes = getBoxes(user.email);
+
+                if (boxes.length <= 0) {
+                    element.innerHTML = '<div></div><h1 class="mx-auto text-xl">Momentan wurden noch keine Boxen auf Ihrem Konto registriert.</h1>'
+                    return;
+                }
+
+                let sidebarElement = document.getElementById('sidebar');
+
+                boxes.forEach((box) => {
+                    let newBoxLinkWrapper = document.createElement('p');
+                    let newBoxLink = document.createElement('a');
+                    newBoxLink.href = "/edit_box_sub.html?boxnr=" + box.boxnr + "&displaynr=true";
+                    newBoxLink.target = "addInfoIframe";
+                    newBoxLink.innerText = "Box " + box.boxnr + " '" + box.bezeichnung + "'";
+
+                    newBoxLink.classList.add("bg-lime-500");
+                    newBoxLink.classList.add("rounded-xl");
+                    newBoxLink.classList.add("p-1");
+
+                    newBoxLinkWrapper.style.padding = "6px";
+                    newBoxLinkWrapper.appendChild(newBoxLink);
+
+                    sidebarElement.appendChild(newBoxLinkWrapper);
+                });
+            }
+        </script>
     </main>
     <footer class="md:flex place-content-center gap-5 bottom-0 bg-neutral-100 dark:bg-neutral-100 rounded-xl p-8 md:p-0">
         <a href="/datasec.html">Datenschutz</a>
@@ -28,6 +76,9 @@
         <a href="/contact.html">Kontakt</a>
     </footer>
     </div>
-    <script>setAuthButtons()</script>
+    <script>
+        setAuthButtons();
+        setupForm();
+    </script>
 </body>
 </html>
