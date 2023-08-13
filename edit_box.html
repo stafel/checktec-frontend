@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckTec</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="control.js"></script>
+</head>
+<body>
+    <div class="flex flex-col h-screen">
+    <figure class="md:flex bg-neutral-100 dark:bg-neutral-100 rounded-xl p-8 md:p-0">
+        <a class="mx-auto" href="/index.html"><img class="mx-auto" src="/logo.png" alt="checktec logo" width="384" height="512"></a>
+    </figure>
+    <figure  id="header-bar" class="md:flex place-content-center gap-5 bg-neutral-100 dark:bg-neutral-100 rounded-xl p-8 md:p-0">
+        <a class="bg-lime-500 rounded-xl p-2" href="/buy.html">Jetzt bestellen</a>
+        <a class="bg-lime-500 rounded-xl p-2" href="/register_box.html">Box registrieren</a>
+        <a class="bg-lime-500 rounded-xl p-2" href="/help_center.html">Hilfezenter</a>
+        <a class="bg-lime-500 rounded-xl p-2" href="/team.html">Das Team</a>
+    </figure>
+    <main class="p-4 flex-grow bg-gray-200"> <!-- mx-auto -->
+        <form class="md:flex" id="content">
+            <div class="mx-auto place-content-center">
+                Box nummer: <input class="bg-slate-200" type="text" id="boxnrInput" name="boxnrInput" readonly>
+            </div>
+
+            <div id="additionalInfo">
+                hello world
+            </div>
+
+        <script>
+            function setupForm() {
+                let element = document.getElementById('content');
+                if (getUser() === null) {
+                    element.innerHTML = '<h1 class="mx-auto text-xl">Um eine Box editieren zu können müssen Sie sich zuerst <a class="underline" href="login.html">Anmelden</a> oder ein <a class="underline" href="register.html">Benutzerkonto registrieren</a>.</h1>'
+                    return;
+                }
+
+                let elementBoxnr = document.getElementById('boxnrInput');
+                let boxnr = getParam('boxnr');
+                elementBoxnr.value = boxnr;
+            }
+        </script>
+
+        </form>
+    </main>
+    <footer class="md:flex place-content-center gap-5 bottom-0 bg-neutral-100 dark:bg-neutral-100 rounded-xl p-8 md:p-0">
+        <a href="/datasec.html">Datenschutz</a>
+        <a href="/impressum.html">Impressum</a>
+        <a href="/contact.html">Kontakt</a>
+    </footer>
+    </div>
+    <script>
+        setAuthButtons();
+        setupForm();
+    </script>
+</body>
+</html>

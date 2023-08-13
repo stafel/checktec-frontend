@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckTec</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="control.js"></script>
+</head>
+<body>
+    <div class="flex flex-col h-screen">
+    <figure class="md:flex bg-neutral-100 dark:bg-neutral-100 rounded-xl p-8 md:p-0">
+        <a class="mx-auto" href="/index.html"><img class="mx-auto" src="/logo.png" alt="checktec logo" width="384" height="512"></a>
+    </figure>
+    <figure  id="header-bar" class="md:flex place-content-center gap-5 bg-neutral-100 dark:bg-neutral-100 rounded-xl p-8 md:p-0">
+        <a class="bg-lime-500 rounded-xl p-2" href="/buy.html">Jetzt bestellen</a>
+        <a class="bg-lime-500 rounded-xl p-2" href="/register_box.html">Box registrieren</a>
+        <a class="bg-lime-500 rounded-xl p-2" href="/help_center.html">Hilfezenter</a>
+        <a class="bg-lime-500 rounded-xl p-2" href="/team.html">Das Team</a>
+    </figure>
+    <main class="p-4 flex-grow bg-gray-200"> <!-- mx-auto -->
+        Momentan wurden noch keine Boxen auf Ihr Konto registriert.
+    </main>
+    <footer class="md:flex place-content-center gap-5 bottom-0 bg-neutral-100 dark:bg-neutral-100 rounded-xl p-8 md:p-0">
+        <a href="/datasec.html">Datenschutz</a>
+        <a href="/impressum.html">Impressum</a>
+        <a href="/contact.html">Kontakt</a>
+    </footer>
+    </div>
+    <script>setAuthButtons()</script>
+</body>
+</html>
