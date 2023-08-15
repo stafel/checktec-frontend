@@ -1,3 +1,7 @@
+const pb = new PocketBase("https://checktec.pockethost.io");
+
+userinfo = null;
+
 dummy_boxes = [
     {
         boxnr: "MX123456",
@@ -86,14 +90,29 @@ function getBoxes(userid) {
     return loadBoxes();
 }
 
+function loginPb(username, password) {
+    pb.collection("users").authWithPassword(username, password)
+        .then((ui) => {
+            //alert(JSON.stringify(pb.authStore.model));
+            window.location.href = 'index.html';
+        })
+        .catch((e) => alert(e));
+}
+
 function getUser() {
-    return JSON.parse(localStorage.getItem("user"));
+    if (pb.authStore.isValid) {
+        return pb.authStore.model;
+    } else {
+        return null;
+    }
 }
 
 function clearUser() {
-    localStorage.setItem("user", null);
+    //localStorage.setItem("user", null);
+    pb.authStore.clear();
 }
 
+/*
 function setUser() {
 
     let user = {
@@ -105,7 +124,7 @@ function setUser() {
     }
 
     localStorage.setItem("user", JSON.stringify(user));
-}
+}*/
 
 function getParam(paramName) {
     let urlParams = new URL(window.location.href).searchParams;

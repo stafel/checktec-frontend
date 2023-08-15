@@ -6,6 +6,7 @@
     <title>CheckTec</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/pocketbase/pocketbase.umd.js"></script>
     <script src="control.js"></script>
 </head>
 <body>
@@ -42,8 +43,7 @@
                         return;
                     }
 
-                    setUser();
-                    window.location.href = 'index.html';
+                    loginPb(username, password);
                 }
             </script>
         </form>
