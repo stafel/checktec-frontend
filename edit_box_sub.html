@@ -13,10 +13,23 @@
         <div id="boxnrDisplay" style="display: none;">Box-Nr: <input type="hidden" id="edt_boxnr", name="edt_boxnr"></div>
         <div>Bezeichnung: <input type="text" id="edt_bez" name="edt_bez"></div>
         <div>Standort: <input type="text" id="edt_ort" name="edt_ort"></div>
+        <div>Sende Nachricht wenn leer: <input type="checkbox" id="edt_senden" name="edt_senden" onclick="sendChange()"></div>
+        <div id="edt_nachricht_box" style="display: none;">Nachricht wenn leer: <input type="text" id="edt_nachricht" name="edt_nachricht"></div>
+        <div>Letztes update: <input type="text" id="edt_update" name="edt_update" readonly class="bg-slate-200"></div>
+        <div>Ist leer: <input type="text" id="edt_empty" name="edt_empty" readonly class="bg-slate-200"></div>
         <div><input type="button" class="bg-lime-500 rounded-xl p-2" id="submit" name="submit" value="Speichern" onclick="saveBoxData()"></div>
         <div id="outputInfo" class="bg-lime-100 rounded-xl p-1" style="display: none;"></div>
     </form>
     <script>
+        function sendChange() {
+            let nachrichtBox = document.getElementById("edt_nachricht_box");
+            if (edt_senden.checked === true) {
+                nachrichtBox.style.display = "block";
+            } else {
+                nachrichtBox.style.display = "none";
+            }
+        }
+
         function saveBoxData() {
 
             let user = getUser();
@@ -26,6 +39,10 @@
                 bezeichnung: edt_bez.value,
                 standort: edt_ort.value,
                 userid: user.email,
+                send_update: edt_senden.checked,
+                nachricht: edt_nachricht.value,
+                letztes_update: "",
+                ist_leer: false,
             };
 
             saveBox(box);
@@ -53,6 +70,10 @@
 
             edt_bez.value = box.bezeichnung;
             edt_ort.value = box.standort;
+            edt_senden.checked = box.send_update;
+            edt_nachricht.value = box.nachricht;
+            edt_update.value = box.letztes_update;
+            edt_empty.value = box.ist_leer;
 
             let displaynr = getParam('displaynr');
 
@@ -64,6 +85,8 @@
                 edt_boxnr.setAttribute("readonly", "true");
                 edt_boxnr.classList.add('bg-slate-200');
             }
+
+            sendChange();
         }
         setupSubBoxForm();
     </script>

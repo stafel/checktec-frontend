@@ -4,18 +4,24 @@ dummy_boxes = [
         userid: "rafael.stauffer@checktec.ch",
         bezeichnung: "Testcontroller",
         standort: "Präsentationsstand",
+        letztes_update: "15.08.2023 15:31",
+        ist_leer: false,
     },
     {
         boxnr: "BX123456",
         userid: "rafael.stauffer@checktec.ch",
         bezeichnung: "Testbox",
         standort: "Präsentationsstand",
+        letztes_update: "15.08.2023 15:31",
+        ist_leer: false,
     },
     {
         boxnr: "BX121212",
         userid: "rafael.stauffer@checktec.ch",
         bezeichnung: "Kirschen",
         standort: "Präsentationsstand",
+        letztes_update: "15.08.2023 15:31",
+        ist_leer: false,
     },
 ];
 
