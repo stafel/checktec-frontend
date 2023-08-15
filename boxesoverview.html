@@ -43,30 +43,30 @@
                     return;
                 }
 
-                let boxes = getBoxes(user.email);
+                getBoxesPb().then((boxes) => {
+                    if (boxes.length <= 0) {
+                        element.innerHTML = '<div></div><h1 class="mx-auto text-xl">Momentan wurden noch keine Boxen auf Ihrem Konto registriert.</h1>'
+                        return;
+                    }
 
-                if (boxes.length <= 0) {
-                    element.innerHTML = '<div></div><h1 class="mx-auto text-xl">Momentan wurden noch keine Boxen auf Ihrem Konto registriert.</h1>'
-                    return;
-                }
+                    let sidebarElement = document.getElementById('sidebar');
 
-                let sidebarElement = document.getElementById('sidebar');
+                    boxes.forEach((box) => {
+                        let newBoxLinkWrapper = document.createElement('p');
+                        let newBoxLink = document.createElement('a');
+                        newBoxLink.href = "/edit_box_sub.html?boxnr=" + box.boxnr + "&displaynr=true";
+                        newBoxLink.target = "addInfoIframe";
+                        newBoxLink.innerText = "Box " + box.boxnr + " '" + box.bezeichnung + "'";
 
-                boxes.forEach((box) => {
-                    let newBoxLinkWrapper = document.createElement('p');
-                    let newBoxLink = document.createElement('a');
-                    newBoxLink.href = "/edit_box_sub.html?boxnr=" + box.boxnr + "&displaynr=true";
-                    newBoxLink.target = "addInfoIframe";
-                    newBoxLink.innerText = "Box " + box.boxnr + " '" + box.bezeichnung + "'";
+                        newBoxLink.classList.add("bg-lime-500");
+                        newBoxLink.classList.add("rounded-xl");
+                        newBoxLink.classList.add("p-1");
 
-                    newBoxLink.classList.add("bg-lime-500");
-                    newBoxLink.classList.add("rounded-xl");
-                    newBoxLink.classList.add("p-1");
+                        newBoxLinkWrapper.style.padding = "6px";
+                        newBoxLinkWrapper.appendChild(newBoxLink);
 
-                    newBoxLinkWrapper.style.padding = "6px";
-                    newBoxLinkWrapper.appendChild(newBoxLink);
-
-                    sidebarElement.appendChild(newBoxLinkWrapper);
+                        sidebarElement.appendChild(newBoxLinkWrapper);
+                    });
                 });
             }
         </script>

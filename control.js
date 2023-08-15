@@ -61,6 +61,31 @@ function saveBoxes(boxes) {
     localStorage.setItem("boxes", JSON.stringify(boxes));
 }
 
+async function getBoxPb(boxnr) {
+    let result = await pb.collection('boxes').getList(1, 50, {
+        filter: 'user.id = "'+ getUser().id +'" && boxnr = "' + boxnr + '"',
+    });
+
+    for (let i = 0; i < result.items.length; i++) {
+        let box = result.items[i];
+        let transformedBox = {
+            ist_leer: box.empty,
+            bezeichnung: box.name,
+            standort: box.place,
+            boxnr: box.boxnr,
+            letztes_update: box.lastUpdate,
+            send_update: box.sendMessageOnEmpty,
+            nachricht: box.messageOnEmpty,
+            userid: getUser().email,
+            id: box.id,
+        };
+
+        return transformedBox;
+    }
+
+    return null;
+}
+
 function getBox(boxnr) {
     let boxes = loadBoxes();
     for (let i = 0; i < boxes.length; i++) {
@@ -70,6 +95,30 @@ function getBox(boxnr) {
     }
 
     return null;
+}
+
+
+async function saveBoxPb(box) {
+
+    let old_box = await getBoxPb(box.boxnr);
+
+    let data = {
+        "content": "",
+        "empty": true,
+        "name": box.bezeichnung,
+        "place": box.standort,
+        "boxnr": box.boxnr,
+        "lastUpdate": box.letztes_update,
+        "sendMessageOnEmpty": box.send_update,
+        "messageOnEmpty": box.nachricht,
+        "user": getUser().id
+    };
+
+    if (old_box) {
+        return await pb.collection('boxes').update(old_box.id, data);
+    } else {
+        return await pb.collection('boxes').create(data);
+    }
 }
 
 function saveBox(box) {
@@ -87,7 +136,34 @@ function saveBox(box) {
 }
 
 function getBoxes(userid) {
+
     return loadBoxes();
+}
+
+async function getBoxesPb() {
+    let result = await pb.collection('boxes').getList(1, 50, {
+        filter: 'user.id = "'+ getUser().id +'"',
+    });
+
+    let transformed_boxes = [];
+
+    for (let i = 0; i < result.items.length; i++) {
+        let box = result.items[i];
+        let transformedBox = {
+            ist_leer: box.empty,
+            bezeichnung: box.name,
+            standort: box.place,
+            boxnr: box.boxnr,
+            letztes_update: box.lastUpdate,
+            send_update: box.sendMessageOnEmpty,
+            nachricht: box.messageOnEmpty,
+            userid: getUser().email,
+        };
+
+        transformed_boxes.push(transformedBox);
+    }
+
+    return transformed_boxes;
 }
 
 function loginPb(username, password) {

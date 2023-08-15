@@ -46,7 +46,7 @@
                 ist_leer: false,
             };
 
-            saveBox(box);
+            saveBoxPb(box);
 
             let elementOutputInfo = document.getElementById('outputInfo');
             elementOutputInfo.innerText = "Daten wurden gespeichert";
@@ -63,31 +63,33 @@
 
             edt_boxnr.value = boxnr;
 
-            let box = getBox(boxnr);
+            //let box = getBox(boxnr);
 
-            if (box === null) {
-                return;
-            }
+            getBoxPb(boxnr).then((box) => {
+                if (box === null) {
+                    return;
+                }
 
-            edt_bez.value = box.bezeichnung;
-            edt_ort.value = box.standort;
-            edt_senden.checked = box.send_update;
-            edt_nachricht.value = box.nachricht;
-            edt_update.value = box.letztes_update;
-            edt_empty.value = box.ist_leer;
+                edt_bez.value = box.bezeichnung;
+                edt_ort.value = box.standort;
+                edt_senden.checked = box.send_update;
+                edt_nachricht.value = box.nachricht;
+                edt_update.value = box.letztes_update;
+                edt_empty.value = box.ist_leer;
 
-            let displaynr = getParam('displaynr');
+                let displaynr = getParam('displaynr');
 
-            let elementBoxnr = document.getElementById('boxnrDisplay');
+                let elementBoxnr = document.getElementById('boxnrDisplay');
 
-            if (displaynr) {
-                edt_boxnr.type = "text";
-                elementBoxnr.style.display = "block";
-                edt_boxnr.setAttribute("readonly", "true");
-                edt_boxnr.classList.add('bg-slate-200');
-            }
+                if (displaynr) {
+                    edt_boxnr.type = "text";
+                    elementBoxnr.style.display = "block";
+                    edt_boxnr.setAttribute("readonly", "true");
+                    edt_boxnr.classList.add('bg-slate-200');
+                }
 
-            sendChange();
+                sendChange();
+            });
         }
         setupSubBoxForm();
     </script>
