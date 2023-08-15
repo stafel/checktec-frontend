@@ -53,18 +53,19 @@
                     return;
                 }
 
-                if (isBoxRegistered(boxnrValue)) {
-                    elementHelp.innerText = "Box-Nummer wurde bereits registriert. Melden Sie sich beim Support im Hilfezenter.";
-                    return;
-                }
+                getBoxPb(boxnrValue).then((box) => {
+                    if (box) {
+                        elementHelp.innerText = "Box-Nummer wurde bereits registriert. Melden Sie sich beim Support im Hilfezenter.";
+                    } else {
+                        elementBoxnr.setAttribute("readonly", "true");
+                        elementBoxnr.classList.add('bg-slate-200');
+                        elementBoxnr.value = boxnrValue;
+                        elementCheck.style.display = "none";
+                        elementAddInfoBox.style.display = "block";
 
-                elementBoxnr.setAttribute("readonly", "true");
-                elementBoxnr.classList.add('bg-slate-200');
-                elementBoxnr.value = boxnrValue;
-                elementCheck.style.display = "none";
-                elementAddInfoBox.style.display = "block";
-
-                elementAddInfo.src = "/edit_box_sub.html?boxnr=" + boxnrValue;
+                        elementAddInfo.src = "/edit_box_sub.html?boxnr=" + boxnrValue;
+                    }
+                });
             }
 
             function setupForm() {
