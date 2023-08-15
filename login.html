@@ -33,17 +33,13 @@
 
                     let elementHelp = document.getElementById('loginHelp');
 
-                    if ((username.length < 3) || (password.length < 3)) {
-                        elementHelp.innerText = "User nicht gefunden";
-                        return;
-                    }
-
-                    if (!username.includes('rafael')) {
-                        elementHelp.innerText = "User nicht gefunden";
-                        return;
-                    }
-
-                    loginPb(username, password);
+                    loginPb(username, password)
+                        .then((userinfo) => {
+                            window.location.href = 'index.html';
+                        })
+                        .catch((err) => {
+                            elementHelp.innerText = "User nicht gefunden";
+                        });
                 }
             </script>
         </form>

@@ -166,13 +166,8 @@ async function getBoxesPb() {
     return transformed_boxes;
 }
 
-function loginPb(username, password) {
-    pb.collection("users").authWithPassword(username, password)
-        .then((ui) => {
-            //alert(JSON.stringify(pb.authStore.model));
-            window.location.href = 'index.html';
-        })
-        .catch((e) => alert(e));
+async function loginPb(username, password) {
+    return pb.collection("users").authWithPassword(username, password);
 }
 
 function getUser() {
